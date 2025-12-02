@@ -1,22 +1,26 @@
 #!/bin/bash
-
-# OS release file
-osfile="/etc/os-release"
-
 # Arch Linux update
-if grep -q "Arch" "$osfile"; then
-    echo "Arch Linux detected. Updating..."
-    sudo pacman -Syu --noconfirm
+if command -v apt == "/usr/bin/apt" > /dev/null; then
+    echo "NOT AN ARCH LINUX DISTRO. not updating......"
+else
+    echo "Arch detected updating system!!!!!!!"
+    sudo pacman -Syu --noconfirm > /dev/null
 fi
 
 # Debian update
-if grep -q "Debian" "$osfile"; then
-    echo "Debian detected. Updating..."
-    sudo apt update && sudo apt upgrade -y
+if command -v pacman == "/usr/bin/pacman" > /dev/null; then
+    echo "NOT A DEBIAN DISTRO. not updating......"
+elif command -v apt == "/usr/bin/apt" > /dev/null; then
+    echo "Debian detected updating system!!!!!!!"
+    sudo apt update > /dev/null && sudo apt upgrade -y > /dev/null
 fi
 
 # Ubuntu update
-if grep -q "Ubuntu" "$osfile"; then
-    echo "Ubuntu detected. Updating..."
-    sudo apt update && sudo apt upgrade -y
+if command -v pacman == "/usr/bin/pacman" > /dev/null; then
+    echo "NOT AN UBUNTU DISTRO. not updating......"
+elif command -v apt == "/usr/bin/apt" > /dev/null; then
+    echo "Ubuntu detected updating system!!!!!!!"
+    sudo apt update > /dev/null && sudo apt upgrade -y > /dev/null
 fi
+
+echo "✓ Update completed successfully!"
