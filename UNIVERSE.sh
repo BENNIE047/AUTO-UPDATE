@@ -1,24 +1,22 @@
 #!/bin/bash
 
-# this is the os-release where update gonna take place 
-osfile= /etc/os-release
+# OS release file
+osfile="/etc/os-release"
 
-# so in that file when the word Arch is gonna be found, updates gonna take place
-# mean while this is only for arch linux...........
-if grep -q "Arch" $osfile
-then
-    sudo pacman -Syu
+# Arch Linux update
+if grep -q "Arch" "$osfile"; then
+    echo "Arch Linux detected. Updating..."
+    sudo pacman -Syu --noconfirm
 fi
 
-# this is debian part of update 
-if grep -q "Debian" $osfile
-then
-    sudo apt update && sudo apt upgrade
+# Debian update
+if grep -q "Debian" "$osfile"; then
+    echo "Debian detected. Updating..."
+    sudo apt update && sudo apt upgrade -y
 fi
 
-# this is ubuntu part of update
-if grep -q "Ubuntu" $osfile
-then
-    sudo apt update && sudo apt upgrade
+# Ubuntu update
+if grep -q "Ubuntu" "$osfile"; then
+    echo "Ubuntu detected. Updating..."
+    sudo apt update && sudo apt upgrade -y
 fi
-
